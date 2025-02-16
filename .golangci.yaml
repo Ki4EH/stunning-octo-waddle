@@ -1,0 +1,46 @@
+# .golangci.yaml
+
+run:
+  timeout: 5m
+  tests: true
+
+linters-settings:
+  govet:
+    check-shadowing: true
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
+    exclude: .golangci/errcheck.exclude  # Error exemptions file
+  golint:
+    min-confidence: 0.8
+  gocyclo:
+    min-complexity: 10
+  staticcheck:
+    checks: ["all"]
+
+linters:
+  enable:
+    - errcheck
+    - govet
+    - golint
+    - staticcheck
+    - gosec
+  disable:
+    - unused
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 3
+  exclude-use-default: false
+  exclude:
+    - "G104"  # Ignore "Errors unhandled" warnings
+    - ".*_test\\.go:.*error return value not checked.*"
+
+output:
+  format: colored-line-number
+  print-issued-lines: true
+  uniq-by-line: true
+
+modules:
+  enable:
+    - all
