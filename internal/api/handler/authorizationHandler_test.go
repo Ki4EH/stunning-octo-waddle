@@ -56,7 +56,7 @@ func TestAuthorizationHandler_Login(t *testing.T) {
 			},
 			requestBody:    `{"username":"testuser","password":"wrongpass"}`,
 			expectedStatus: http.StatusUnauthorized,
-			expectedBody:   `"invalid password"`,
+			expectedBody:   `{"errors": "invalid password"}`,
 		},
 	}
 

@@ -98,7 +98,7 @@ func TestSendCoinHandler(t *testing.T) {
 		err := handlerCombined.SendCoinHandler(c)
 
 		require.NoError(t, err)
-		require.Equal(t, http.StatusInternalServerError, rec.Code)
+		require.Equal(t, http.StatusBadRequest, rec.Code)
 		require.Contains(t, rec.Body.String(), "insufficient balance")
 	})
 

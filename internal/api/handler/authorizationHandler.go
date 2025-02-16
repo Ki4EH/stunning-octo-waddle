@@ -48,7 +48,7 @@ func (r *AuthorizationHandler) Login(c echo.Context) error {
 	} else {
 		if credential.Password != loginRequest.Password {
 			c.Response().Status = http.StatusUnauthorized
-			return c.JSON(http.StatusUnauthorized, "invalid password")
+			return c.JSON(http.StatusUnauthorized, map[string]string{"errors": "invalid password"})
 		}
 	}
 
@@ -59,5 +59,5 @@ func (r *AuthorizationHandler) Login(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"errors": fmt.Sprintf("failed to generate token %v", err)})
 	}
 
-	return c.JSON(http.StatusOK, token)
+	return c.JSON(http.StatusOK, map[string]string{"token": token})
 }

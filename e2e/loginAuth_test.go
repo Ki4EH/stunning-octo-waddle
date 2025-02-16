@@ -51,7 +51,7 @@ func TestLoginHandler(t *testing.T) {
 		require.NoError(t, err)
 		require.Equal(t, http.StatusOK, rec.Code)
 
-		var token string
+		var token struct{ Token string }
 		require.NoError(t, json.Unmarshal(rec.Body.Bytes(), &token))
 		require.NotEmpty(t, token)
 
@@ -89,9 +89,9 @@ func TestLoginHandler(t *testing.T) {
 		require.NoError(t, err)
 		require.Equal(t, http.StatusOK, rec.Code)
 
-		var token string
+		var token struct{ Token string }
 		require.NoError(t, json.Unmarshal(rec.Body.Bytes(), &token))
-		claims, err := utils.ParseToken(token)
+		claims, err := utils.ParseToken(token.Token)
 		require.NoError(t, err)
 		require.NotEmpty(t, claims.UserID)
 	})

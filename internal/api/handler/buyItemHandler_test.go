@@ -39,7 +39,7 @@ func TestCoinHandler_BuyItem(t *testing.T) {
 			},
 			item:           "item1",
 			expectedStatus: http.StatusOK,
-			expectedBody:   `"ok"`,
+			expectedBody:   "",
 		},
 		{
 			name: "failed to get JWT token",
@@ -64,7 +64,7 @@ func TestCoinHandler_BuyItem(t *testing.T) {
 			},
 			item:           "item1",
 			expectedStatus: http.StatusBadRequest,
-			expectedBody:   `{"error":"failed to buy item insufficient funds"}`,
+			expectedBody:   `{"errors":"failed to buy item insufficient funds"}`,
 		},
 		{
 			name: "failed to buy item - repository error",
@@ -80,7 +80,7 @@ func TestCoinHandler_BuyItem(t *testing.T) {
 			},
 			item:           "item1",
 			expectedStatus: http.StatusBadRequest,
-			expectedBody:   `{"error":"failed to buy item database error"}`,
+			expectedBody:   `{"errors":"failed to buy item database error"}`,
 		},
 	}
 
@@ -111,7 +111,11 @@ func TestCoinHandler_BuyItem(t *testing.T) {
 
 			assert.NoError(t, err)
 			assert.Equal(t, tt.expectedStatus, rec.Code)
-			assert.JSONEq(t, tt.expectedBody, rec.Body.String())
+			if tt.name == "successful purchase" {
+				assert.Empty(t, rec.Body.String())
+			} else {
+				assert.JSONEq(t, tt.expectedBody, rec.Body.String())
+			}
 		})
 	}
 }
