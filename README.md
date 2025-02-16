@@ -57,6 +57,8 @@ docker-compose up
 Провел нагрузочное тестирование с помощью инструмента k6. Файл сценария находится в папке `k6`,
 результаты тестирования можно [посмотреть](https://drive.google.com/file/d/1NmSQUMD0qxzZNR_uu2PAAnp-4kbYzU8S/view?usp=sharing) на Google Drive тк он превышает 100мб .
 
+Показатель RPS - 860s - тк было плавное повышение нагрузки в виде 30с, после минута нагрузки под 1000 RPS, поэтому показатель меньше
+
 ![WindowsTerminal_kZdd6G6SJX.png](WindowsTerminal_kZdd6G6SJX.png)
 
 ## Использование golangci-lint для контроля качества кода и E2E-тестирование
